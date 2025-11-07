@@ -18,8 +18,7 @@
 
   <!-- Assets -->
   <a-assets>
-    <!-- Placeholder: remplacer par votre modèle 3D -->
-    <!-- Exemple: <a-asset-item id="dish-model" src="./models/dish.glb"></a-asset-item> -->
+    <a-asset-item id="macarons-model" src="Macarons_Quad_new.glb"></a-asset-item>
   </a-assets>
 
   <!-- Camera with cursor -->
@@ -65,56 +64,13 @@
     position-smoother="enabled: true; factor: 0.15"
     scale-lock="enabled: true">
 
-    <!-- Modèle 3D du plat - REMPLACER PAR VOTRE MODÈLE -->
-    <!-- Option 1: Utiliser un modèle GLB/GLTF -->
-    <!-- <a-gltf-model src="#dish-model" position="0 0 0" scale="1 1 1"></a-gltf-model> -->
-
-    <!-- Option 2: Placeholder pour tests - Un simple plat stylisé -->
-    <a-entity id="dish-placeholder">
-      <!-- Assiette -->
-      <a-cylinder
-        radius="0.15"
-        height="0.02"
-        color="#ffffff"
-        shadow="cast: true; receive: true"
-        position="0 0 0">
-      </a-cylinder>
-
-      <!-- Nourriture stylisée (exemple: burger) -->
-      <a-entity position="0 0.05 0">
-        <!-- Pain du bas -->
-        <a-cylinder radius="0.08" height="0.03" color="#d4a574" position="0 0 0"></a-cylinder>
-        <!-- Salade -->
-        <a-cylinder radius="0.09" height="0.01" color="#5fb850" position="0 0.02 0"></a-cylinder>
-        <!-- Steak -->
-        <a-cylinder radius="0.085" height="0.025" color="#8b4513" position="0 0.035 0"></a-cylinder>
-        <!-- Fromage -->
-        <a-cylinder radius="0.09" height="0.01" color="#f4d03f" position="0 0.05 0"></a-cylinder>
-        <!-- Pain du haut -->
-        <a-sphere radius="0.09" color="#d4a574" position="0 0.08 0" scale="1 0.6 1"></a-sphere>
-        <!-- Graine de sésame -->
-        <a-sphere radius="0.008" color="#f5e6d3" position="0 0.105 0.03"></a-sphere>
-        <a-sphere radius="0.008" color="#f5e6d3" position="0.02 0.105 -0.02"></a-sphere>
-        <a-sphere radius="0.008" color="#f5e6d3" position="-0.025 0.105 0.01"></a-sphere>
-      </a-entity>
-
-      <!-- Étiquette de prix (optionnel) -->
-      <a-entity position="0 0.2 0" rotation="0 0 0">
-        <a-plane
-          width="0.2"
-          height="0.08"
-          color="#333333"
-          opacity="0.9">
-        </a-plane>
-        <a-text
-          value="Burger Deluxe\n15.99€"
-          align="center"
-          width="0.35"
-          color="#ffffff"
-          position="0 0 0.001">
-        </a-text>
-      </a-entity>
-    </a-entity>
+    <!-- Modèle 3D des macarons -->
+    <a-gltf-model
+      src="#macarons-model"
+      position="0 0 0"
+      scale="1 1 1"
+      shadow="cast: true; receive: true">
+    </a-gltf-model>
 
     <!-- Shadow plane (optionnel, pour meilleure intégration) -->
     <a-plane
