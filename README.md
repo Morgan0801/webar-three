@@ -21,67 +21,82 @@ Application WebAR optimisée pour afficher des plats de restaurant en 3D avec tr
 
 ---
 
-## 🚀 Setup dans 8th Wall Cloud Editor
+## 🚀 Setup dans 8th Wall Studio
 
-### 1. Créer un Nouveau Projet
+### 1. Ouvrir votre Projet 8th Wall Studio
 
 1. Connectez-vous sur [8th Wall Console](https://console.8thwall.com/)
-2. Cliquez sur **"Create New Project"**
-3. Sélectionnez **"A-Frame"** comme framework
-4. Nommez votre projet (ex: "menu-ar-restaurant")
+2. Ouvrez votre projet existant ou créez-en un nouveau
+3. Sélectionnez **"A-Frame"** comme framework si nouveau projet
 
-### 2. Uploader les Fichiers
+### 2. Structure des Fichiers
 
-Dans l'éditeur 8th Wall, uploadez les 3 fichiers :
+8th Wall Studio utilise 3 fichiers obligatoires + 1 fichier CSS :
 
 ```
-📁 Projet
-├── index.html        ← Fichier principal
-├── components.js     ← Composants AR
-└── styles.css        ← Styles UI
+📁 Projet 8th Wall Studio
+├── app.js         ← Tous les composants AR + event listeners (OBLIGATOIRE)
+├── head.html      ← Meta tags + CSS link (OBLIGATOIRE)
+├── body.html      ← Scène A-Frame + UI overlay (OBLIGATOIRE)
+└── styles.css     ← Styles UI (fichier séparé à créer)
 ```
 
-**Comment uploader :**
-- Cliquez sur **"+"** ou **"Add File"**
-- Sélectionnez **"Upload File"**
-- Uploadez chaque fichier un par un
+### 3. Copier le Contenu des Fichiers
 
-### 3. Configuration de l'App Key
+#### ✅ Étape 1 : Créer `styles.css`
 
-⚠️ **IMPORTANT** : Remplacez `YOUR_APP_KEY_HERE` dans `index.html` ligne 11 :
+1. Dans 8th Wall Studio, cliquez sur **"+ Add File"**
+2. Nommez le fichier : `styles.css`
+3. Copiez-collez **tout le contenu** du fichier `styles.css` fourni
 
-```html
-<!-- Avant -->
-<script async src="//apps.8thwall.com/xrweb?appKey=YOUR_APP_KEY_HERE"></script>
+#### ✅ Étape 2 : Modifier `head.html`
 
-<!-- Après (utilisez votre vraie App Key) -->
-<script async src="//apps.8thwall.com/xrweb?appKey=VOTRE_CLE_ICI"></script>
-```
+1. Ouvrez le fichier `head.html` existant dans votre projet
+2. **Remplacez tout le contenu** par celui du fichier `head.html` fourni
+3. ⚠️ **NOTE** : Vérifiez si A-Frame est déjà inclus automatiquement par Studio
+   - Si OUI : gardez le script A-Frame en commentaire
+   - Si NON : décommentez la ligne `<script src="...aframe..."></script>`
 
-**Où trouver votre App Key :**
-1. Dans 8th Wall Console, allez dans votre projet
-2. Cliquez sur **"Settings"** ou **"App Key"**
-3. Copiez la clé (format: `XXXXXXXXXXXXXXX`)
+#### ✅ Étape 3 : Modifier `body.html`
 
-### 4. Ajouter un Modèle 3D (Optionnel)
+1. Ouvrez le fichier `body.html` existant dans votre projet
+2. **Remplacez tout le contenu** par celui du fichier `body.html` fourni
+
+#### ✅ Étape 4 : Modifier `app.js`
+
+1. Ouvrez le fichier `app.js` existant dans votre projet
+2. **Remplacez tout le contenu** par celui du fichier `app.js` fourni
+
+### 4. Vérification
+
+✅ Votre projet doit maintenant contenir :
+- `app.js` : ~600 lignes (tous les composants)
+- `head.html` : ~10 lignes (meta + CSS)
+- `body.html` : ~130 lignes (scène A-Frame)
+- `styles.css` : ~120 lignes (styles UI)
+
+⚠️ **IMPORTANT** : 8th Wall Studio gère automatiquement l'App Key, pas besoin de le configurer !
+
+### 5. Ajouter un Modèle 3D (Optionnel)
 
 Le projet inclut un placeholder (burger stylisé) pour les tests. Pour utiliser votre propre modèle :
 
 #### Option A : Upload de fichier GLB/GLTF
 
-1. **Uploadez votre modèle 3D** dans 8th Wall Cloud Editor
+1. **Uploadez votre modèle 3D** dans 8th Wall Studio
+   - Cliquez sur **"+ Add File"** → **"Upload"**
    - Format recommandé : `.glb` (optimisé)
    - Taille max : 5-10 MB pour bonnes performances
 
-2. **Dans index.html**, décommentez et modifiez la section assets (ligne 35-37) :
+2. **Dans body.html**, décommentez et modifiez la section assets (ligne ~20) :
 
 ```html
 <a-assets>
-  <a-asset-item id="dish-model" src="./models/votre-plat.glb"></a-asset-item>
+  <a-asset-item id="dish-model" src="./votre-plat.glb"></a-asset-item>
 </a-assets>
 ```
 
-3. **Remplacez le placeholder** (ligne 92-138) par :
+3. **Remplacez le placeholder** (ligne ~72 dans body.html) par :
 
 ```html
 <a-gltf-model
@@ -160,7 +175,7 @@ Le projet inclut un placeholder (burger stylisé) pour les tests. Pour utiliser 
 
 ### Ajuster le Smoothing
 
-Dans `index.html` ligne 86, modifiez le paramètre `factor` :
+Dans `body.html` ligne ~66, modifiez le paramètre `factor` :
 
 ```html
 position-smoother="enabled: true; factor: 0.15"
@@ -172,7 +187,7 @@ position-smoother="enabled: true; factor: 0.15"
 
 ### Ajuster le Pinch Range
 
-Dans `index.html` ligne 85, modifiez les limites :
+Dans `body.html` ligne ~65, modifiez les limites :
 
 ```html
 pinch-scale="min: 0.5; max: 3.0; initial: 1.0"
@@ -184,7 +199,7 @@ pinch-scale="min: 0.5; max: 3.0; initial: 1.0"
 
 ### Désactiver le Drag
 
-Si vous voulez un modèle fixe après placement :
+Si vous voulez un modèle fixe après placement, dans `body.html` :
 
 ```html
 drag-to-move="enabled: false"
@@ -192,7 +207,7 @@ drag-to-move="enabled: false"
 
 ### Ajuster le Délai de Drag
 
-Dans `components.js` ligne 366, modifiez :
+Dans `app.js` ligne ~368, modifiez :
 
 ```javascript
 this.dragThreshold = 300; // ms - hold time before drag starts
@@ -212,7 +227,7 @@ this.dragThreshold = 300; // ms - hold time before drag starts
 1. Améliorez l'éclairage de la scène
 2. Évitez les surfaces uniformes (ajoutez des textures/objets)
 3. Bougez lentement au début pour que le SLAM se calibre
-4. Augmentez le `correctionFactor` dans `tap-to-place` (ligne 214) : `0.05` → `0.1`
+4. Augmentez le `correctionFactor` dans `app.js` (ligne ~194, composant `tap-to-place`) : `0.05` → `0.1`
 
 ### Le smoothing est trop "gluant"
 
@@ -241,19 +256,19 @@ this.dragThreshold = 300; // ms - hold time before drag starts
 2. Les gestures 2 doigts peuvent se chevaucher : essayez séparément
 3. Sur iOS, assurez-vous d'autoriser les capteurs de mouvement
 
-### Erreur "App Key invalid"
+### Les composants ne se chargent pas
 
 **Solutions :**
-1. Vérifiez que vous avez remplacé `YOUR_APP_KEY_HERE`
-2. Copiez-collez la clé depuis 8th Wall Console
-3. Assurez-vous qu'il n'y a pas d'espaces avant/après
+1. Vérifiez que `app.js` contient bien tous les composants AFRAME
+2. Ouvrez la console du navigateur (F12) pour voir les erreurs
+3. Vérifiez que A-Frame est bien chargé (dans `head.html` ou automatiquement par Studio)
 
 ---
 
 ## 📐 Architecture des Composants
 
 ```
-components.js
+app.js
 ├── ar-hit-test              → Détection de surface
 ├── ar-tracking-quality      → Monitoring du tracking
 ├── tap-to-place             → Placement + locking
@@ -261,7 +276,8 @@ components.js
 ├── two-finger-rotate        → Rotation 2 doigts
 ├── drag-to-move             → Déplacement 1 doigt
 ├── position-smoother        → Anti-jitter
-└── scale-lock               → Anti-respiration
+├── scale-lock               → Anti-respiration
+└── Event Listeners          → UI interactions (instructions, double-tap, etc.)
 ```
 
 ### Ordre d'Exécution
@@ -297,7 +313,7 @@ Dans `styles.css` :
 
 ### Changer les Textes
 
-Dans `index.html` ligne 31 :
+Dans `body.html` ligne ~4 :
 
 ```html
 <h2>🍽️ Menu AR Restaurant</h2>
@@ -342,7 +358,7 @@ gltf-transform optimize input.glb output.glb \
 
 ### Monitoring Performance
 
-Ajoutez dans `index.html` avant `</a-scene>` :
+Ajoutez dans `body.html` juste avant `</a-scene>` :
 
 ```html
 <a-entity stats></a-entity>
