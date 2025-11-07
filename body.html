@@ -1,86 +1,61 @@
-<!-- Instructions overlay -->
-<div id="instructions" class="overlay">
-  <div class="instruction-card">
-    <h2>🍽️ Menu AR Restaurant</h2>
-    <p id="instruction-text">Déplacez votre téléphone pour scanner l'environnement...</p>
-    <div id="tracking-quality" class="tracking-badge">Initialisation...</div>
-  </div>
-</div>
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
 
-<!-- A-Frame AR Scene -->
 <a-scene
-  xrweb="allowedDevices: any"
-  renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
-  loading-screen="enabled: false"
-  device-orientation-permission-ui="enabled: false"
-  ar-hit-test
-  ar-tracking-quality>
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  renderer="colorManagement: true"
+  xrweb="allowedDevices: any">
 
-  <!-- Assets -->
+  <!-- We can define assets here to be loaded when A-Frame initializes -->
   <a-assets>
-    <a-asset-item id="macarons-model" src="./Macarons_Quad_new.glb"></a-asset-item>
+    <!-- Credit to Poly by Google for the model: https://poly.google.com/view/5ZMAz7_ucTn -->
+    <a-asset-item id="sandCastleModel" src="assets/sand-castle.glb"></a-asset-item>
   </a-assets>
 
-  <!-- Camera with cursor -->
+  <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
   <a-camera
     id="camera"
-    position="0 0 0"
-    raycaster="objects: .raycastable"
-    cursor="rayOrigin: mouse"
-    look-controls="enabled: false">
+    position="0 8 8"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
   </a-camera>
 
-  <!-- Lights for realistic rendering -->
-  <a-entity light="type: ambient; intensity: 0.6"></a-entity>
-  <a-entity light="type: directional; intensity: 0.8; castShadow: true" position="1 4 2"></a-entity>
-
-  <!-- Reticle for placement (placed by ar-hit-test) -->
   <a-entity
-    id="reticle"
-    visible="false"
-    position="0 0 0"
-    rotation="-90 0 0">
-    <a-ring
-      material="shader: flat; color: #00ff00; opacity: 0.7; side: double"
-      radius-inner="0.08"
-      radius-outer="0.12"
-      segments-theta="64">
-    </a-ring>
-    <a-entity
-      geometry="primitive: cylinder; radius: 0.001; height: 0.05"
-      material="shader: flat; color: #00ff00; opacity: 0.7"
-      rotation="0 0 0">
-    </a-entity>
+    light="
+      type: directional;
+      intensity: 0.8;
+      castShadow: true;
+      shadowMapHeight:2048;
+      shadowMapWidth:2048;
+      shadowCameraTop: 10;
+      target: #model;
+      shadowRadius: 12"
+    xrextras-attach="target: model; offset: 1 15 3;"
+    shadow>
   </a-entity>
 
-  <!-- AR Content Container -->
-  <a-entity
-    id="ar-content"
-    visible="false"
-    tap-to-place="reticleId: #reticle"
-    pinch-scale="min: 0.5; max: 3.0; initial: 1.0"
-    two-finger-rotate
-    drag-to-move
-    position-smoother="enabled: true; factor: 0.15"
-    scale-lock="enabled: true">
+  <a-light type="ambient" intensity="0.7"></a-light>
 
-    <!-- Modèle 3D des macarons -->
-    <a-gltf-model
-      src="#macarons-model"
-      position="0 0 0"
-      scale="1 1 1"
-      shadow="cast: true; receive: true">
-    </a-gltf-model>
-
-    <!-- Shadow plane (optionnel, pour meilleure intégration) -->
-    <a-plane
-      rotation="-90 0 0"
-      width="0.5"
-      height="0.5"
-      material="shader: shadow; opacity: 0.4"
-      shadow="receive: true"
-      position="0 0.001 0">
-    </a-plane>
+  <a-entity 
+    id="model" 
+    gltf-model="#sandCastleModel" 
+    class="cantap" 
+    xrextras-hold-drag 
+    xrextras-two-finger-rotate 
+    xrextras-pinch-scale 
+    scale="3 3 3" 
+    shadow="receive: false">
   </a-entity>
 
+  <a-plane
+    id="ground" 
+    rotation="-90 0 0" 
+    width="1000" 
+    height="1000" 
+    material="shader: shadow" 
+    shadow>
+  </a-plane>
 </a-scene>
