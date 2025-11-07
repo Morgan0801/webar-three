@@ -11,8 +11,7 @@
 
   <!-- We can define assets here to be loaded when A-Frame initializes -->
   <a-assets>
-    <!-- Credit to Poly by Google for the model: https://poly.google.com/view/5ZMAz7_ucTn -->
-    <a-asset-item id="sandCastleModel" src="assets/sand-castle.glb"></a-asset-item>
+    <a-asset-item id="sandCastleModel" src="./Macarons_Quad_new.glb"></a-asset-item>
   </a-assets>
 
   <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
@@ -39,14 +38,15 @@
 
   <a-light type="ambient" intensity="0.7"></a-light>
 
-  <a-entity 
-    id="model" 
-    gltf-model="#sandCastleModel" 
-    class="cantap" 
-    xrextras-hold-drag 
-    xrextras-two-finger-rotate 
-    xrextras-pinch-scale 
-    scale="3 3 3" 
+  <a-entity
+    id="model"
+    gltf-model="#sandCastleModel"
+    class="cantap"
+    xrextras-hold-drag
+    xrextras-two-finger-rotate
+    xrextras-pinch-scale
+    scale-lock
+    scale="1 1 1"
     shadow="receive: false">
   </a-entity>
 
