@@ -31,38 +31,31 @@ Application WebAR optimisée pour afficher des plats de restaurant en 3D avec tr
 
 ### 2. Structure des Fichiers
 
-8th Wall Studio utilise 3 fichiers obligatoires + 1 fichier CSS :
+8th Wall Studio utilise 3 fichiers obligatoires :
 
 ```
 📁 Projet 8th Wall Studio
 ├── app.js         ← Tous les composants AR + event listeners (OBLIGATOIRE)
-├── head.html      ← Meta tags + CSS link (OBLIGATOIRE)
-├── body.html      ← Scène A-Frame + UI overlay (OBLIGATOIRE)
-└── styles.css     ← Styles UI (fichier séparé à créer)
+├── head.html      ← Meta tags + CSS inline (OBLIGATOIRE)
+└── body.html      ← Scène A-Frame + UI overlay (OBLIGATOIRE)
 ```
+
+**Note** : Le CSS est maintenant **inline dans head.html** pour éviter les erreurs de build.
 
 ### 3. Copier le Contenu des Fichiers
 
-#### ✅ Étape 1 : Créer `styles.css`
-
-1. Dans 8th Wall Studio, cliquez sur **"+ Add File"**
-2. Nommez le fichier : `styles.css`
-3. Copiez-collez **tout le contenu** du fichier `styles.css` fourni
-
-#### ✅ Étape 2 : Modifier `head.html`
+#### ✅ Étape 1 : Modifier `head.html`
 
 1. Ouvrez le fichier `head.html` existant dans votre projet
 2. **Remplacez tout le contenu** par celui du fichier `head.html` fourni
-3. ⚠️ **NOTE** : Vérifiez si A-Frame est déjà inclus automatiquement par Studio
-   - Si OUI : gardez le script A-Frame en commentaire
-   - Si NON : décommentez la ligne `<script src="...aframe..."></script>`
+3. Le CSS est déjà inclus dans ce fichier (balise `<style>`)
 
-#### ✅ Étape 3 : Modifier `body.html`
+#### ✅ Étape 2 : Modifier `body.html`
 
 1. Ouvrez le fichier `body.html` existant dans votre projet
 2. **Remplacez tout le contenu** par celui du fichier `body.html` fourni
 
-#### ✅ Étape 4 : Modifier `app.js`
+#### ✅ Étape 3 : Modifier `app.js`
 
 1. Ouvrez le fichier `app.js` existant dans votre projet
 2. **Remplacez tout le contenu** par celui du fichier `app.js` fourni
@@ -70,10 +63,9 @@ Application WebAR optimisée pour afficher des plats de restaurant en 3D avec tr
 ### 4. Vérification
 
 ✅ Votre projet doit maintenant contenir :
-- `app.js` : ~600 lignes (tous les composants)
-- `head.html` : ~10 lignes (meta + CSS)
+- `app.js` : ~620 lignes (tous les composants)
+- `head.html` : ~175 lignes (meta + CSS inline)
 - `body.html` : ~130 lignes (scène A-Frame)
-- `styles.css` : ~120 lignes (styles UI)
 
 ⚠️ **IMPORTANT** : 8th Wall Studio gère automatiquement l'App Key, pas besoin de le configurer !
 
@@ -296,7 +288,7 @@ app.js
 
 ### Modifier les Couleurs
 
-Dans `styles.css` :
+Dans `head.html`, modifiez la balise `<style>` :
 
 ```css
 /* Background overlay */
@@ -322,7 +314,7 @@ Dans `body.html` ligne ~4 :
 
 ### Masquer les Instructions
 
-Ajoutez dans `styles.css` :
+Ajoutez dans `head.html`, dans la balise `<style>` :
 
 ```css
 .overlay {
